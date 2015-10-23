@@ -23,3 +23,15 @@ sudo chmod +x add-apt-repository
 sudo chown root:root add-apt-repository
 
 Ps. I found a version of this tool on a forum, but it used full 'apt-get update' to get the authentication key. that seemed like a waste of bandwidth and time, so I edited it to only pull keys for the added repository.
+
+###**mysql dump + upload**
+
+pull request by [MAGICCC](https://github.com/MAGICCC)
+
+#### I take NO responsibility for the file
+
+I don't Really know that guy, but his work seems neat.
+
+the tool seems to be used to automatically dump the contents of mysql-databases in a certain folder + /etc/mysql/debian.cnf then back it up with ncftpput to a remote host.
+
+Correct me if I'm wrong.

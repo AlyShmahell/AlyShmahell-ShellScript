@@ -32,6 +32,6 @@ pull request by [MAGICCC](https://github.com/MAGICCC)
 
 I don't really know that guy, but his work seems neat.
 
-the tool seems to be used to automatically dump the contents of mysql-databases + '/etc/mysql/debian.cnf' in a certain folder then back it up with ncftpput to a remote host.
+the tool seems to be used to automatically dump the contents of mysql-databases in a certain folder + the contents of '/etc/mysql/debian.cnf' then back it up with ncftpput to a remote host.
 
 Correct me if I'm wrong.

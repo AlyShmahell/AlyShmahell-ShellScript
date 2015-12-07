@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Re-encode flac files to mp3 files, requires the mp3lame library and ffmpeg
+
+for origin in *.flac
+ do
+   result=`echo "$origin" | cut -d"." -f1 -s`
+    echo "origin is $origin and resutl is $result"
+   ffmpeg -i "${origin}" -codec:a libmp3lame -b:a 320k -y "${result}.mp3"
+done

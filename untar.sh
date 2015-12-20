@@ -5,7 +5,7 @@ echo "batch untar and decompress repositories inside a main directory, it should
 
 printf "\n"
 
-for dir in `ls`
+for file in *
    do
-     tar -xvf "${dir}"
+     tar -xvf "${file}"
    done

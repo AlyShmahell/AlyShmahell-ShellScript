@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ ! -d "finished" ]; then
+  mkdir "finished"
+fi
+
+for origin in *.pdf
+ do
+   result=`echo "$origin" | cut -d"." -f1 -s`
+    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+      -dNOPAUSE -dBATCH -dDetectDuplicateImages -dNOINTERPOLATE \
+      -dCompressFonts=true -r150 -sOutputFile="${result}0.pdf" "$origin"
+    var1=$(stat -c%s "$origin")
+    var1=$(stat -c%s "${result}0.pdf")
+    if [ $var1 > $var1 ]
+      then 
+           rm -rf "$origin"
+           mv -f "${result}0.pdf" "./finished/${result}.pdf"
+    else
+         rm -rf "${result}0.pdf"
+         mv -f "$origin" "./finished/$origin"
+    fi
+ done
+
+

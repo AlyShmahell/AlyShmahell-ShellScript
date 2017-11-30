@@ -2,8 +2,9 @@
 
 # Re-encode large video files with the HEVC encoder, it requires x265 and ffmpeg
 
-for origin in *.vob
+for origin in *.*
  do
+   mkdir resultDir
    result=`echo "$origin" | cut -d"." -f1 -s`
     echo "origin is $origin and resutl is $result.mp4"
         ffmpeg -i "${origin}" \
@@ -11,5 +12,5 @@ for origin in *.vob
 	       -preset ultrafast \
 	       -x265-params crf=23:pools=2 \
 	       -c:a libfdk_aac -b:a 128k \
-	       "${result}.mp4"
+	       "resultDir/${result}.mp4"
 done

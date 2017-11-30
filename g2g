@@ -1,0 +1,20 @@
+#!/bin/bash
+(echo "g2g: a tool to convert svn based Google Code repositories to git based Github repositories..."
+echo "Usage: g2g <Google Code Project Name> <Github User or Org> <Github Repo>")
+
+(bash -c "wget -c https://storage.googleapis.com/google-code-archive-source/v2/code.google.com/$1/repo.svndump.gz -O /home/$USER/"
+tar -xzvf /home/$USER/repo.svndump.gz)
+
+(svnadmin create /home/$USER/$1
+svnadmin load $1 < /home/$USER/repo.svndump)
+(
+mkdir /home/$USER/tempdir
+git svn clone file:///home/$USER/$1 /home/$USER/tmpdir/$1 --stdlayout
+)
+(
+cd /home/$USER/tmpdir/$1
+git remote add origin https://github.com/$2/$3
+git checkout -B trunk
+git push -u origin master
+)
+

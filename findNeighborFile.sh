@@ -1,0 +1,20 @@
+#!/bin/bash
+
+neighbor=$1
+target=$2
+directory=$(dirname "${neighbor}")
+if [ -f "$neighbor" ]; then
+    echo "$neighbor is present"
+    if [ -f "$directory/$target" ]; then
+    	echo "$directory/$target is present"
+    else
+    	echo "$directory/$target is not present"
+    fi
+else
+    echo "$neighbor is not present"
+    if [ -f "$directory/$target" ]; then
+    	echo "$directory/$target is present"
+    else
+    	echo "$directory/$target is not present"
+    fi
+fi

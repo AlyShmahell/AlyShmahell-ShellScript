@@ -1,0 +1,18 @@
+#!/bin/bash
+
+allowed=('jpg' 'jpeg')
+for extension in ${allowed[@]}
+    do
+		for file in $1/*.$extension
+			do
+				if [ ! -f "$file" ]
+					then
+					continue
+				fi
+				name=`echo "$file" | cut -d"." -f1 -s`
+				echo $name
+				convert $1/$file "$1/$name.ppm"
+				potrace -s "$1/$name.ppm" -o "$1/$name.svg"
+				rm -rf "$1/$name.ppm"
+			done
+	done

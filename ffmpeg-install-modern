@@ -1,0 +1,51 @@
+#!/bin/bash
+
+sudo apt install -y \
+                   libopus-dev \
+                   libmp3lame-dev \
+                   libfdk-aac-dev \
+                   libvpx-dev \
+                   libass-dev \
+                   libtheora-dev \
+                   libvorbis-dev \
+                   libx264-dev \
+                   yasm \
+                   cmake \
+                   mercurial
+
+mkdir -p /usr/local/ffmpeg_build
+mkdir -p ~/ffmpeg; cd ~/ffmpeg
+
+hg clone https://bitbucket.org/multicoreware/x265
+cd x265/build/linux 
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/usr/local/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
+make && make install
+
+if [ -d ~/ffmpeg ]; then cd ~/ffmpeg; else mkdir -p ~/ffmpeg && cd ~/ffmpeg; fi
+if [ ! -f ~/ffmpeg/ffmpeg-snapshot.tar.bz2 ]; then wget -O- http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 | tar xj; fi
+if [ -d ~/ffmpeg/ffmpeg ]; then cd ~/ffmpeg/ffmpeg; fi
+
+
+PKG_CONFIG_PATH="/usr/local/ffmpeg_build/lib/pkgconfig" \
+   ./configure \
+  --prefix="/usr/local/ffmpeg_build" \
+  --pkg-config-flags="--static" \
+  --extra-cflags="-I/usr/local/ffmpeg_build/include" \
+  --extra-ldflags="-L/usr/local/ffmpeg_build/lib" \
+  --extra-libs="-lpthread -lm" \
+  --bindir="/usr/local/bin" \
+  --enable-gpl \
+  --enable-libass \
+  --enable-libfdk-aac \
+  --enable-libfreetype \
+  --enable-libmp3lame \
+  --enable-libopus \
+  --enable-libtheora \
+  --enable-libvorbis \
+  --enable-libvpx \
+  --enable-libx264 \
+  --enable-libx265 \
+  --enable-nonfree && \
+make && make install
+
+cd ~ && rm -rf ~/ffmpeg

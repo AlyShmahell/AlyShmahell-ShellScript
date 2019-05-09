@@ -1,0 +1,24 @@
+#!/bin/bash
+
+for origin in $1/*.pdf
+    do
+          if [ ! -f "$origin" ]
+                then
+                continue
+          fi
+          result=`echo "$origin" | rev | cut -d'/' -f 1 | rev | cut -d"." -f1 -s`
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+              -dNOPAUSE -dBATCH -dDetectDuplicateImages -dNOINTERPOLATE \
+              -dCompressFonts=true -r150 -sOutputFile="$1/${result}0.pdf" "$origin"
+          var1=$(wc -c < "$origin")
+          var2=$(wc -c < "$1/${result}0.pdf")
+          if [ $var1 -ge $var2 ]
+              then 
+                  mv -f "$1/${result}0.pdf" "$2/${result}.pdf"
+              else
+                  cp -f "$origin" "$2/${result}.pdf"
+          fi
+          rm -rf "${result}0.pdf"
+    done
+
+

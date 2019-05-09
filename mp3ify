@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for origin in $1/*.flac
+    do
+          if [ ! -f "$origin" ]
+                then
+                continue
+          fi
+          result=`echo "$origin" | rev | cut -d'/' -f 1 | rev | cut -d"." -f1 -s`
+          echo "origin is $origin and result is $result"
+          ffmpeg -i "${origin}" -codec:a libmp3lame -b:a 320k -y "$2/${result}.mp3"
+    done

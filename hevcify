@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# a shellscript to re-encode video files to hevc, it requires x265 and ffmpeg.
+
+allowed=('avi' 'mp4' 'mkv')
+for extension in ${allowed[@]}
+    do
+		for source in $1/*.$extension
+			do
+				if [ ! -f $source ]
+					then
+					continue
+				fi
+				result=`echo "$source" | rev | cut -d'/' -f 1 | rev | rev | cut -d'.' -f2- | rev`
+				echo "source is $source and result is $result.mp4"
+				ffmpeg -i "${source}" \
+					-c:v libx265 \
+					-preset ultrafast \
+					-x265-params crf=23:pools=2 \
+					-c:a libfdk_aac -b:a 128k \
+					"$2/${result}.mp4"
+			done
+	done

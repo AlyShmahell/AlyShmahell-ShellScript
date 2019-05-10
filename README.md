@@ -1,5 +1,7 @@
 # a collection of Linux shellscripts.
 
+## The Scripts:  
+
 - **add-apt-repository:** a shellscript to add PPA repositories to your Debian-based machine.  
 - **batch-hevcify:** a shellscript to batch re-encode video files to hevc, it requires ffmpeg which is compiled with  x265 & fdk_aac.
 - **batch-mp3ify:** a shellscript to batch convert flac to mp3.
@@ -15,3 +17,10 @@
 - **find-neighbor-file:** a shellscript to find file that neighbor a certain file path.
 - **repo-integrate:** a shellscript to merge two repos into one.
 - **repo-to-repo:** a shellscript to convert svn based Google Code repositories to git based Github repositories.
+
+## Installation:
+```sh
+sudo add-apt-repository ppa:alyshmahell/script-in-the-shell
+sudo apt-get update
+sudo apt install script-in-the-shell
+```

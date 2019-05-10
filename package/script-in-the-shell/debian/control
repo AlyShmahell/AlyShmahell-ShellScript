@@ -1,0 +1,10 @@
+Source: script-in-the-shell
+Section: shells
+Priority: extra
+Build-Depends: debhelper
+Standards-Version: 4.3.0.3
+Maintainer: "Aly Shmahell" <aly.shmahell@gmail.com>
+
+Package: script-in-the-shell
+Architecture: all
+Description: v1.0

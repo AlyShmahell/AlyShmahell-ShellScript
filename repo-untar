@@ -1,6 +1,0 @@
-#!/bin/bash
-
-for file in $1/*.tar
-   do
-     tar -xvf "${file}"
-   done

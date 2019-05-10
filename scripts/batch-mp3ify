@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for origin in $1/*.flac
+for origin in "$1"/*.flac
     do
           if [ ! -f "$origin" ]
                 then

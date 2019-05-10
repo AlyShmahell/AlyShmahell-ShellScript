@@ -14,18 +14,20 @@ sudo apt install -y \
                    mercurial
 
 mkdir -p /usr/local/ffmpeg_build
-mkdir -p ~/ffmpeg; cd ~/ffmpeg
+mkdir -p ~/ffmpeg
 
+cd ~/ffmpeg
 hg clone https://bitbucket.org/multicoreware/x265
-cd x265/build/linux 
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="/usr/local/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
+wget -O- http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 | tar xj
+
+cd ~/ffmpeg/x265/build/linux 
+cmake -G "Unix Makefiles" \
+      -DCMAKE_INSTALL_PREFIX="/usr/local/ffmpeg_build" \
+      -DENABLE_SHARED:bool=off \
+      ../../source
 make && make install
 
-if [ -d ~/ffmpeg ]; then cd ~/ffmpeg; else mkdir -p ~/ffmpeg && cd ~/ffmpeg; fi
-if [ ! -f ~/ffmpeg/ffmpeg-snapshot.tar.bz2 ]; then wget -O- http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 | tar xj; fi
-if [ -d ~/ffmpeg/ffmpeg ]; then cd ~/ffmpeg/ffmpeg; fi
-
-
+cd ~/ffmpeg/ffmpeg
 PKG_CONFIG_PATH="/usr/local/ffmpeg_build/lib/pkgconfig" \
    ./configure \
   --prefix="/usr/local/ffmpeg_build" \

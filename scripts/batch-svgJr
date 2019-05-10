@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for d in "$1" ; do
+	[ -d "$d" ] || break
+	if [ -d "$d" ]; then
+		(cd "$d" && for f in *.svg; do
+				[ -f "$f" ] || break
+				result=`echo "$f" | rev | cut -d'/' -f 1 | rev | rev | cut -d'.' -f2- | rev`
+				dir=`echo "$d" | rev | cut -d'/' -f 1 | rev`
+				echo "processing: $f"
+				cp "$f" "$result-$dir.svg"
+			    done
+		 )
+	fi
+done

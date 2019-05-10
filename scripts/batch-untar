@@ -1,0 +1,16 @@
+#!/bin/bash
+
+allowed=('tar' 'gz' 'lz' 'xz')
+for extension in ${allowed[@]}
+    do
+        for file in "$1"/*."$extension"
+            do
+                if [ ! -f "$file" ]
+                    then
+                    continue
+                fi
+                file=`echo "$file" | rev | cut -d'/' -f 1 | rev | rev | cut -d'.' -f2- | rev`
+                mkdir -p "$2/$file"
+                tar -xvf "$1/${file}.$extension" -C "$2/$file"
+            done
+    done

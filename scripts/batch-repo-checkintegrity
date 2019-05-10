@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd "$1"
+for test_case in `ls`
+   do
+      printf "\n###################################\n" 
+        if [ -d "${test_case}/.git" ]
+            then
+               printf "checking git test_case : ${test_case} :\n"
+               cd "${test_case}" 
+               git status
+               cd ..
+            else 
+               if [ -d "${test_case}/.svn" ]
+                     then
+                        printf "checking svn test_case : ${test_case} :\n" 
+                        cd "${test_case}" 
+                        svn status 
+                        cd ..
+                     else 
+                        if [ -d "${test_case}/.hg" ]
+                              then
+                                 printf "checking hg test_case : ${test_case} :\n" 
+                                 cd "${test_case}" 
+                                 hg status 
+                                 cd ..
+                              else
+                                 printf "${test_case} is neither from git nor svn" 
+                        fi
+               fi
+        fi
+      printf "\n************************************\n" 
+   done

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-neighbor=$1
-target=$2
+neighbor="$1"
+target="$2"
 directory=$(dirname "${neighbor}")
 if [ -f "$neighbor" ]; then
     echo "$neighbor is present"

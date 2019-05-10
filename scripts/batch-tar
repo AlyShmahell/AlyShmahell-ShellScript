@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ls "$1" | while read i
+do
+    echo $i
+    tar -cvf "$2/$i.xz" -C "$1" "$i" --use-compress-prog=xz
+done

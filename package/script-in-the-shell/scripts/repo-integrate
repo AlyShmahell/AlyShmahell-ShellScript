@@ -25,13 +25,14 @@ git commit -m "Initial dummy commit"
 vars=($@)
 reponames=""
 
-for old_repo in ${vars[@]:1}; do
+printf "%s %s\n" ${vars[@]:1} |
+while read -r old_repo branch; do
 	reponame=${old_repo##*/}
 	# Fetching old_repo
 	git remote add -f "$reponame" "$old_repo"
 
 	# Merger from old_repo/master into new/master
-	git merge "$reponame/master" -m "fetched from $reponame"
+	git merge "$reponame/$branch" -m "fetched from $reponame" --allow-unrelated-histories
 	
 	if [ -f deleteme.txt ]; then
 		# dummy file removal
